@@ -4,6 +4,7 @@ import com.nhnacademy.minidooray.entity.AccountGit;
 import com.nhnacademy.minidooray.entity.AccountGateway;
 import com.nhnacademy.minidooray.util.RequestGitApi;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -18,6 +19,10 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CustomO2Auth2MemberService extends DefaultOAuth2UserService {
+
+    @Value("${github.token}")
+    private String githubToken;
+
     RestTemplate restTemplate;
 
     private final RequestGitApi requestGitApi;
@@ -30,7 +35,7 @@ public class CustomO2Auth2MemberService extends DefaultOAuth2UserService {
         //TODO github의 email이 기존 유저의 email과 같으면 연동, 아니면 새로 가입
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Accept", "application/vnd.github+json");
-        httpHeaders.add("Authorization", "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");
+        httpHeaders.add("Authorization", "");
         httpHeaders.add("X-GitHub-Api-Version", "2022-11-28");
 
 //        HttpEntity<String> request = new HttpEntity<>(httpHeaders);

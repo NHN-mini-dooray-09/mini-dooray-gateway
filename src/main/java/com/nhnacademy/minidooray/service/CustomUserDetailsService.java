@@ -30,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         // 1. service
         // 2. userInfo
         // 3. return new User(userInfo.getId((), get())
-//        return new User("admin", passwordEncoder.encode("admin"), List.of());
+        return new User("admin", passwordEncoder.encode("admin"), List.of());
 
 
     }
