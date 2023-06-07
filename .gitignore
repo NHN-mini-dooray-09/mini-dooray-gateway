@@ -245,4 +245,4 @@ buildNumber.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/sonarqube,java,sonar,intellij,maven,macos
 
-application.properties
+application-dev.properties
