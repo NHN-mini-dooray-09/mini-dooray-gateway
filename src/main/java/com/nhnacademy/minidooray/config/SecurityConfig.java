@@ -2,6 +2,7 @@ package com.nhnacademy.minidooray.config;
 
 import com.nhnacademy.minidooray.auth.LoginSuccessHandler;
 //import com.nhnacademy.minidooray.service.CustomO2Auth2MemberService;
+import com.nhnacademy.minidooray.service.CustomO2Auth2MemberService;
 import com.nhnacademy.minidooray.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +27,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-//    private final CustomO2Auth2MemberService customO2Auth2MemberService;
+    private final CustomO2Auth2MemberService customO2Auth2MemberService;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.authorizeHttpRequests()
