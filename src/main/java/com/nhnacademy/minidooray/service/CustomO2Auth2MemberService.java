@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomO2Auth2MemberService extends DefaultOAuth2UserService {
 
-    @Value("${github.token}")
+//    @Value("${github.token}")
     private String githubToken;
 
     RestTemplate restTemplate;
@@ -35,7 +35,7 @@ public class CustomO2Auth2MemberService extends DefaultOAuth2UserService {
         //TODO github의 email이 기존 유저의 email과 같으면 연동, 아니면 새로 가입
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Accept", "application/vnd.github+json");
-        httpHeaders.add("Authorization", "");
+        httpHeaders.add("Authorization", githubToken);
         httpHeaders.add("X-GitHub-Api-Version", "2022-11-28");
 
 //        HttpEntity<String> request = new HttpEntity<>(httpHeaders);

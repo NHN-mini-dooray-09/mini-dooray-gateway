@@ -1,6 +1,6 @@
 package com.nhnacademy.minidooray.controller;
 
-import com.nhnacademy.minidooray.entity.AccountDao;
+import com.nhnacademy.minidooray.entity.AccountDto;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.core.ParameterizedTypeReference;
@@ -20,14 +20,14 @@ public class GitController {
     RestTemplate restTemplate;
 
     @GetMapping
-    public List<AccountDao> getGitAccount() {
+    public List<AccountDto> getGitAccount() {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Accept", "application/vnd.github+json");
         httpHeaders.add("Authorization", "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");
         httpHeaders.add("X-GitHub-Api-Version", "2022-11-28");
 
         HttpEntity<String> request = new HttpEntity<>(httpHeaders);
-        ResponseEntity<List<AccountDao>> exchange = restTemplate.exchange(
+        ResponseEntity<List<AccountDto>> exchange = restTemplate.exchange(
                 "https://api.github.com/user/emails",
                 HttpMethod.GET,
                 request,
