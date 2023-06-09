@@ -23,7 +23,7 @@ public class CustomO2Auth2MemberService extends DefaultOAuth2UserService {
 //    @Value("${github.token}")
     private String githubToken;
 
-    RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     private final RequestGitApi requestGitApi;
 
@@ -38,15 +38,16 @@ public class CustomO2Auth2MemberService extends DefaultOAuth2UserService {
         httpHeaders.add("Authorization", githubToken);
         httpHeaders.add("X-GitHub-Api-Version", "2022-11-28");
 
-//        HttpEntity<String> request = new HttpEntity<>(httpHeaders);
-        List<AccountGit> response = requestGitApi.getResponse(
+//        List<AccountGit> response =
+                requestGitApi.getResponse(
                 "https://api.github.com/user/emails",
                 HttpMethod.GET,
                 httpHeaders,
                 new ParameterizedTypeReference<>() {
                 }
         );
-        return null;
+
+        return new AccountGateway("tmp", null);
     }
 
 }

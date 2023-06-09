@@ -1,5 +1,6 @@
 package com.nhnacademy.minidooray.entity;
 
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
