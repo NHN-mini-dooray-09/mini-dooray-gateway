@@ -6,7 +6,7 @@
     <title>Login</title>
 </head>
 <body>
-    <form method="post" action="/login">
+    <form method="post" action="/accounts/login">
         <span th:text="#{login.id}"></span>: <input type="text" name="id" /><br />
         <span th:text="#{login.pwd}"></span>: <input type="password" name="pw" /><br />
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />

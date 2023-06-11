@@ -1,10 +1,12 @@
 package com.nhnacademy.minidooray.controller;
 
 import com.nhnacademy.minidooray.account.AccountCreateDto;
-import org.springframework.beans.factory.annotation.Value;
+import com.nhnacademy.minidooray.account.AccountLoginDto;
+import com.nhnacademy.minidooray.service.CustomUserDetailsService;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -12,25 +14,28 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @RestController
-@RequestMapping
-public class GitController {
+@RequestMapping("/accounts")
+public class AccountController {
     private RestTemplate restTemplate;
+    private String url;
+    private CustomUserDetailsService userDetailsService;
 
-    @Value("${github.token}")
-    private String githubToken;
+//    @GetMapping("/login")
+//    public AccountLoginDto getAccount() {
+//        userDetailsService.loadUserByUsername(String )
+//    }
 
-    @GetMapping
-    public List<AccountCreateDto> getGitAccount() {
+    @PostMapping
+    public List<AccountCreateDto> createAccount() {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Accept", "application/vnd.github+json");
-        httpHeaders.setBearerAuth(githubToken);
-        httpHeaders.add("X-GitHub-Api-Version", "2022-11-28");
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
 
         HttpEntity<String> request = new HttpEntity<>(httpHeaders);
 
         ResponseEntity<List<AccountCreateDto>> exchange = restTemplate.exchange(
-                "https://api.github.com/user/emails",
-                HttpMethod.GET,
+                url,
+                HttpMethod.POST,
                 request,
                 new ParameterizedTypeReference<>() {
                 }

@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
@@ -23,31 +24,31 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+//@EnableWebSecurity(debug = true)
 @RequiredArgsConstructor
 public class SecurityConfig {
 
     private final CustomO2Auth2MemberService customO2Auth2MemberService;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.authorizeHttpRequests()
-//                .antMatchers("/user/**").hasAnyRole("ROLE_ADMIN", "ROLE_MEMBER")
-//                .antMatchers("/admin/**").hasRole("ROLE_ADMIN")
-                    .anyRequest().permitAll()
+        return httpSecurity.authorizeRequests()
+                    .antMatchers("/**").permitAll()
                 .and()
                 .csrf()
                     .disable()
                 .formLogin()
-                    .loginPage("/login").permitAll()
-                    .usernameParameter("id")
-                    .passwordParameter("pw")
-                    .defaultSuccessUrl("/index")
+//                    .loginPage("/accounts/login").permitAll()
+//                    .usernameParameter("id")
+//                    .passwordParameter("pw")
 //                .userInfoEndpoint()
 //                .userService(customO2Auth2MemberService)
                 .and()
                 .oauth2Login()
-                    .authorizationEndpoint()
-                    .baseUri("/login")
+//                    .loginPage("/accounts/login").permitAll()
+//                    .authorizationEndpoint()
+//                    .baseUri("/login")
+                    .userInfoEndpoint()
+                    .userService(customO2Auth2MemberService)
                 .and()
                 .and()
                 .build();
@@ -70,7 +71,8 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+//        return new BCryptPasswordEncoder();
+        return NoOpPasswordEncoder.getInstance();
     }
 
 }
