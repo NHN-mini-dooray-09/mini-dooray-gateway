@@ -1,5 +1,6 @@
 package com.nhnacademy.minidooray;
 
+import com.nhnacademy.minidooray.service.CustomUserDetailsService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

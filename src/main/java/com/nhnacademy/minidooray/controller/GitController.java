@@ -1,6 +1,7 @@
 package com.nhnacademy.minidooray.controller;
 
 import com.nhnacademy.minidooray.account.AccountCreateDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -12,9 +13,10 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/git")
+@RequiredArgsConstructor
 public class GitController {
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     @Value("${github.token}")
     private String githubToken;

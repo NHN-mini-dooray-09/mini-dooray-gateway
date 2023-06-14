@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>afterLoginPage</h1>
+<a sec:authorize="!isAuthenticated()" id="login" href="/redirect-index" th:text="'login'"/>
+<th:block sec:authorize="isAuthenticated()">
+  <span th:text=" ${#authentication.getName()}" sec:authentication="name"/>
+</th:block>
+<p></p>
+
+</body>
+</html>

@@ -18,6 +18,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
         Cookie cookie = new Cookie("LOGIN", session.getId());
         response.addCookie(cookie);
-        response.sendRedirect("/");
+        response.sendRedirect("/accounts/afterLogin");
     }
 }

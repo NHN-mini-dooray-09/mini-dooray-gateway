@@ -1,45 +1,38 @@
 package com.nhnacademy.minidooray.controller;
 
 import com.nhnacademy.minidooray.account.AccountCreateDto;
-import com.nhnacademy.minidooray.account.AccountLoginDto;
 import com.nhnacademy.minidooray.service.CustomUserDetailsService;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
+@Controller
 @RequestMapping("/accounts")
+@RequiredArgsConstructor
 public class AccountController {
-    private RestTemplate restTemplate;
-    private String url;
-    private CustomUserDetailsService userDetailsService;
+    private final CustomUserDetailsService customUserDetailsService;
+    private final PasswordEncoder passwordEncoder;
 
-//    @GetMapping("/login")
-//    public AccountLoginDto getAccount() {
-//        userDetailsService.loadUserByUsername(String )
-//    }
-
-    @PostMapping
-    public List<AccountCreateDto> createAccount() {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
-
-        HttpEntity<String> request = new HttpEntity<>(httpHeaders);
-
-        ResponseEntity<List<AccountCreateDto>> exchange = restTemplate.exchange(
-                url,
-                HttpMethod.POST,
-                request,
-                new ParameterizedTypeReference<>() {
-                }
-        );
-        return exchange.getBody();
+    @GetMapping("/signup")
+    public String getSignupPage() {
+        return "accounts/signup";
     }
+
+    @PostMapping("/signup")
+    public String createAccount(AccountCreateDto accountCreateDto) {
+        String encodedPassword = passwordEncoder.encode(accountCreateDto.getPassword());
+        accountCreateDto.setPassword(encodedPassword);
+        customUserDetailsService.createAccount(accountCreateDto);
+
+        return "redirect:/login";
+    }
+
+    // TODO 경로 바꾸기
+    @GetMapping("/afterLogin")
+    public String doAfterLogin() {
+        return "afterLogin";
+    }
+
+//    @GetMapping("/exists/{id}")
 }
