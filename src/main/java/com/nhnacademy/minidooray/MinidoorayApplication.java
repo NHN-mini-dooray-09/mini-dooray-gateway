@@ -1,10 +1,11 @@
 package com.nhnacademy.minidooray;
 
-import com.nhnacademy.minidooray.service.CustomUserDetailsService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 @SpringBootApplication
+@ConfigurationPropertiesScan
 public class MinidoorayApplication {
 
 	public static void main(String[] args) {

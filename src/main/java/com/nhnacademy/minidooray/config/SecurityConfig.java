@@ -1,7 +1,8 @@
 package com.nhnacademy.minidooray.config;
 
-import com.nhnacademy.minidooray.auth.LoginSuccessHandler;
+//import com.nhnacademy.minidooray.auth.LoginSuccessHandler;
 //import com.nhnacademy.minidooray.service.CustomO2Auth2MemberService;
+import com.nhnacademy.minidooray.auth.LoginSuccessHandler;
 import com.nhnacademy.minidooray.service.CustomO2Auth2MemberService;
 import com.nhnacademy.minidooray.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
@@ -10,13 +11,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
-//@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -33,12 +35,9 @@ public class SecurityConfig {
                     .successHandler(authenticationSuccessHandler())
                 .and()
                 .oauth2Login()
-                .successHandler(authenticationSuccessHandler())
-//                    .authorizationEndpoint()
-//                    .baseUri("/login")
+                    .successHandler(authenticationSuccessHandler())
                     .userInfoEndpoint()
                     .userService(customO2Auth2MemberService)
-
                 .and()
                 .and()
                 .build();
